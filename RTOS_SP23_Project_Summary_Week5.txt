@@ -1,0 +1,20 @@
+Week #5Unit TestsTimer->Tasks Cutting Point:Conceptual Test #1: Verify proper semaphore communication between timer callbacks and tasks.Status: Currently passing.Conceptual Test #2: Update and read a global variable to verify that timer callbacks are being entered.Status: Not tested but would pass since test #1 is passing.Physics Task->Energy Timer Cutting Point: No longer using energy timer, doing energy updates using physics task and period instead.Physics Event Flag Cutting Point: Changed from event flags to updated global variable.Unit Tests1. Place finger on far right of slider, verify platform moves to the right with increasing speed.
+Pass2. Keep your finger in the same position and verify that the platform bounces off the cliff.
+Pass3. Keep your finger in the same position and verify that the platform moves back to the middle before stopping and turning around.
+Pass4. Move your finger to the far left of the slider and verify that the platform turns around.
+Pass5. Keep your finger in the same position and verify that the platform moves to the left with increasing speed.
+Pass6. Keep your finger in the same position and verify that the platform bounces off of the left side of the screen.
+Pass7. Keep your finger in the same position and verify that the platform moves back to where it previously turned around before hitting the wall. Platform currently bounces back further than its previous position. This was not the case last week. This is a low priority fix at the moment.8. Repeatedly tap far left and far right on the slider and verify that the platform moves in a twitchy fashion back and forth.
+Pass9. Press button0 and observe the shield is turned on.
+Pass10. Press, hold, and release button1 and verify that a rail gun shot is fired
+Pass
+11. Hit the castle three times and verify that the game ends.
+Pass
+12. Hit the foundation three times, observing that one support disappears each time, and verify that the game ends.
+Pass
+13. Keep speeding up until the platform hits the side and the game ends.
+PassFunctionality:This week I fine tuned the energy bar, shield activation, satchel charges, and rail gun shots.The shield turns on and remains on until the energy bar runs out. The rail gun currently fires with a varying power and trajectory. It fires upon release of BTN1.Pressing and holding BTN1 results in the energy bar decreasing until it is released or the bar hits 0.Charging a shot while the shield is active results in the energy bar draining twice as fast.The shield has collision detection and effectively blocks satchel charges.Satchel charges fire at a pre-set frequency and either hit the platform, shield, or disappear at the bottom of the screen.
+
+The castle and platform both have health and collision detection implemented. The castle can take three hits from the railgun. The foundation has three supports each of which can take one hit from the rail gun. When all three are gone, the game ends.
+
+The game ends if the platform hits the wall above a certain speed.Summary:This week I completed 2.25% of the total work in 2.25% of the initially estimated total time. For the work that has been completed, I took 1x the anticipated time. The reason for not completing a lot is because I am not finished debugging. This is the last thing I have left to do. I anticipate needing 6 more hours to complete this. This is exactly what I had scheduled.Completed Work:Revise globals and task diagram: I did not have time to mess with ITC so my diagram saw little change this week. There were a few elements of global structs introduced for streamlining purposes.
