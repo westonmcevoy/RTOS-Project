@@ -1,0 +1,62 @@
+FinalFunctional Tests/Where my project stands1. Platform moves right and left with slider input.
+2. Energy bar charges up constantly.
+3. Upon pressing button 0 when energy is above indicator, shield discharges.
+4. Shield blocks satchel charges.
+5. Upon pressing button 1, energy bar begins to drain and LED0 blinks faster and faster as you continue to hold it.
+6. Upon releasing button 1, gun fires.
+7. Castle foundational columns disappear as they get hit.
+8. Satchels and rail gun charges all disappear upon hitting surfaces or edge of screen.
+9. Gun fires automatically when charging a shot and energy runs out.
+10. Game ends when platform hits wall going too fast or gets hit by three satchels (lose screen).
+11. Game ends when castle gets hit three times (lose screen).
+12. Game ends when all three castle foundational columns get hit (win screen).
+13. Upon game ending, LED1 blinks four times while graphics pause. Then appropriate end screen displays and LED1 remains lit.
+
+Timeline Breakdown
+
+I completed 100% of the estimated 44.5 hours of work in 51.75 hours (1.16 times the anticipated time).
+
+Complete Items
+
+This week I completed the debugging phase. This consisted of final touches on end screens, LED implementation, and last minute adjustments. I also
+Did a run through of my ITC and ensured everything was functioning and implemented properly.
+
+Analysis of Code
+RT tasks:
+1. Direction task
+	-triggered by: timer posting semaphore
+	-period: 100 ms (1 in simplicity)
+	-priority: 21
+2. Physics task
+	-triggered by: timer posting semaphore
+	-period: 100 ms (1 in simplicity)
+	-priority: 22
+3. Graphics task
+	-triggered by: timer posting semaphore
+	-period: 100 ms (1 in simplicity)
+	-priority: 23
+4. LED task
+	-triggered by: flag post from physics and Led timer
+	-period: Changes depending on energy of rail gun shot
+	-priority: 24
+
+Luckily, I overcame all barriers to smooth operation. Adjusting priorities and periods allowed me to achieve smooth graphics. Early on,
+Graphics task having a higher priority than physics task was slowing down graphics.
+
+
+Code Space
+Roughly 1500. Probably around 1100 without comments and spaces. Necessary commenting especially in physics and graphics task to help
+With organization.
+
+Physics Approach
+I strategically placed edge case checking early on in the task to avoid having to do multiple checks. Gun actions and energy updates are done first so the correct energy can be used for calculations later
+On in the task. I used variables within the gun struct to indicate whether the gun was loading or not. This prevented me from having to alert the task that the button was being held every time it ran.
+For platform and satchel physics, I made trajectory calculations first and then checked edge cases. This was optimal since when I checked edge cases I would occasionally post flags and I didn't want to post a flag before I updated trajectories. For satchel charges I chose a random end point and back-calculated the initial velocities necessary for the charge to land there. For rail gun shots I scaled the initial velocity based on the energy and used the barrel angle to calculate xVel and yVel. The hardest part was figuring out the 'load' portion of the rail gun.
+
+Variable Spaces
+By having pixel variables for every physical feature drawn, I was able to be very deliberate in the regions I defined. I was still able to implement real world data (m, kM, etc.) by having a conversion variable so I could easily switch between pixels and actual dimensions. The graphics are meant to be scalable. Everything is dependent on macros and related to each other. Although its not quite finished. Two more hours would result in easily changing the game map.
+
+I found all of the data necessary but wish the values were hard set instead of half way mandatory.
+
+Next Steps:
+Finish implementing the scalable environment. Include a menu where you can select values ahead of gameplay. I would also like to look at implementing items and explosions that result in vertical impulse being applied to the platform (it bounces). The first two would vastly improve the functionality of the game and the last few would be fun! 
